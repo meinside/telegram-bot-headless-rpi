@@ -65,7 +65,7 @@ $ sudo systemctl start telegram-bot-headless-rpi.service
 
 ## Send commands through Telegram
 
-[capture](https://user-images.githubusercontent.com/185988/37770794-ecb0440c-2e18-11e8-8486-02b992469f93.png)
+![capture](https://user-images.githubusercontent.com/185988/37770794-ecb0440c-2e18-11e8-8486-02b992469f93.png)
 
 ## License
 
