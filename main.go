@@ -152,13 +152,13 @@ func processUpdate(b *bot.Bot, update bot.Update) bool {
 		options := defaultOptions()
 
 		// 'is typing...'
-		b.SendChatAction(update.Message.Chat.Id, bot.ChatActionTyping)
+		b.SendChatAction(update.Message.Chat.ID, bot.ChatActionTyping)
 
 		if strings.HasPrefix(txt, CommandStart) {
 			message := MessageHelp
 
 			// send message
-			if sent := b.SendMessage(update.Message.Chat.Id, message, options); !sent.Ok {
+			if sent := b.SendMessage(update.Message.Chat.ID, message, options); !sent.Ok {
 				log.Printf("*** Failed to send message: %s", *sent.Description)
 			}
 		} else if strings.HasPrefix(txt, CommandStatus) {
@@ -187,7 +187,7 @@ Free Spaces :
 				freeSpaces,
 			)
 
-			if sent := b.SendMessage(update.Message.Chat.Id, status, options); !sent.Ok {
+			if sent := b.SendMessage(update.Message.Chat.ID, status, options); !sent.Ok {
 				log.Printf("*** Failed to send message: %s", *sent.Description)
 			}
 		} else if strings.HasPrefix(txt, CommandLocation) {
@@ -196,7 +196,7 @@ Free Spaces :
 					options["live_period"] = LocationLivePeriodSeconds
 
 					if sent := b.SendLocation(
-						update.Message.Chat.Id,
+						update.Message.Chat.ID,
 						geoInfo.Location.Latitude,
 						geoInfo.Location.Longitude,
 						options,
@@ -205,7 +205,7 @@ Free Spaces :
 					}
 				} else {
 					if sent := b.SendMessage(
-						update.Message.Chat.Id,
+						update.Message.Chat.ID,
 						fmt.Sprintf("Failed to get geo location: %s", err),
 						options,
 					); !sent.Ok {
@@ -214,7 +214,7 @@ Free Spaces :
 				}
 			} else {
 				if sent := b.SendMessage(
-					update.Message.Chat.Id,
+					update.Message.Chat.ID,
 					fmt.Sprintf("Failed to get external ip address: %s", err),
 					options,
 				); !sent.Ok {
@@ -245,7 +245,7 @@ Free Spaces :
 
 			// send message
 			message := MessageConfirmReboot
-			if sent := b.SendMessage(update.Message.Chat.Id, message, options); !sent.Ok {
+			if sent := b.SendMessage(update.Message.Chat.ID, message, options); !sent.Ok {
 				log.Printf("*** Failed to send message: %s", *sent.Description)
 			}
 		} else if strings.HasPrefix(txt, CommandShutdown) {
@@ -272,13 +272,13 @@ Free Spaces :
 
 			// send message
 			message := MessageConfirmShutdown
-			if sent := b.SendMessage(update.Message.Chat.Id, message, options); !sent.Ok {
+			if sent := b.SendMessage(update.Message.Chat.ID, message, options); !sent.Ok {
 				log.Printf("*** Failed to send message: %s", *sent.Description)
 			}
 		} else if strings.HasPrefix(txt, CommandHelp) {
 			// send message
 			message := MessageHelp
-			if sent := b.SendMessage(update.Message.Chat.Id, message, options); !sent.Ok {
+			if sent := b.SendMessage(update.Message.Chat.ID, message, options); !sent.Ok {
 				log.Printf("*** Failed to send message: %s", *sent.Description)
 			}
 		} else {
@@ -287,7 +287,7 @@ Free Spaces :
 			log.Println(message)
 
 			// send message
-			if sent := b.SendMessage(update.Message.Chat.Id, message, options); !sent.Ok {
+			if sent := b.SendMessage(update.Message.Chat.ID, message, options); !sent.Ok {
 				log.Printf("*** Failed to send message: %s", *sent.Description)
 			}
 		}
@@ -316,11 +316,11 @@ func processCallbackQuery(b *bot.Bot, update bot.Update) bool {
 	}
 
 	// answer callback query
-	if apiResult := b.AnswerCallbackQuery(query.Id, map[string]interface{}{"text": message}); apiResult.Ok {
+	if apiResult := b.AnswerCallbackQuery(query.ID, map[string]interface{}{"text": message}); apiResult.Ok {
 		// edit message and remove inline keyboards
 		options := map[string]interface{}{
-			"chat_id":    query.Message.Chat.Id,
-			"message_id": query.Message.MessageId,
+			"chat_id":    query.Message.Chat.ID,
+			"message_id": query.Message.MessageID,
 		}
 		if apiResult := b.EditMessageText(message, options); apiResult.Ok {
 			result = true
@@ -328,14 +328,14 @@ func processCallbackQuery(b *bot.Bot, update bot.Update) bool {
 			if message == MessageRebooting {
 				// reboot
 				if output, err := hardware.RebootNow(); err != nil {
-					if sent := b.SendMessage(update.Message.Chat.Id, output, options); !sent.Ok {
+					if sent := b.SendMessage(update.Message.Chat.ID, output, options); !sent.Ok {
 						log.Printf("*** Failed to send message: %s", *sent.Description)
 					}
 				}
 			} else if message == MessageShuttingdown {
 				// shutdown
 				if output, err := hardware.ShutdownNow(); err != nil {
-					if sent := b.SendMessage(update.Message.Chat.Id, output, options); !sent.Ok {
+					if sent := b.SendMessage(update.Message.Chat.ID, output, options); !sent.Ok {
 						log.Printf("*** Failed to send message: %s", *sent.Description)
 					}
 				}
