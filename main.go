@@ -5,9 +5,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"path"
+	"os"
 	"path/filepath"
-	"runtime"
 	"strings"
 
 	"github.com/meinside/rpi-tools/hardware"
@@ -69,18 +68,18 @@ type config struct {
 
 // Read config
 func getConfig() (conf config, err error) {
-	_, filename, _, _ := runtime.Caller(0) // = __FILE__
-
-	if file, err := ioutil.ReadFile(filepath.Join(path.Dir(filename), ConfigFilename)); err == nil {
-		var cfg config
-		if err := json.Unmarshal(file, &cfg); err == nil {
-			return cfg, nil
-		} else {
-			return config{}, err
+	var execFilepath string
+	if execFilepath, err = os.Executable(); err == nil {
+		var file []byte
+		if file, err = ioutil.ReadFile(filepath.Join(filepath.Dir(execFilepath), ConfigFilename)); err == nil {
+			var cfg config
+			if err = json.Unmarshal(file, &cfg); err == nil {
+				return cfg, nil
+			}
 		}
-	} else {
-		return config{}, err
 	}
+
+	return config{}, err
 }
 
 func init() {
