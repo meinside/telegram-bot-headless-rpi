@@ -38,6 +38,8 @@ and edit values to yours:
 		"telegram_id_3"
 	],
 	"telegram_monitor_interval": 1,
+	"ipstack_access_key": "xyz_123466789_abcd",
+	"ipstack_premium": false,
 	"is_verbose": false
 }
 ```
