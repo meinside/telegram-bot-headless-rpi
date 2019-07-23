@@ -1,3 +1,5 @@
+github.com/meinside/ipstack-go v0.0.2 h1:iZdZBP3NgafnpS04BEKS51Tj9bmRwroDf6kawDtjhDk=
+github.com/meinside/ipstack-go v0.0.2/go.mod h1:YmoGaPtjFN27d8voktqwiqhfHVC1mTlWPOu7qOUOBVg=
 github.com/meinside/rpi-tools v0.1.0 h1:0ImgtwSf457M42ZBlhOZiZ19WlzjyyL+nTlclYHdAr4=
 github.com/meinside/rpi-tools v0.1.0/go.mod h1:4p9tXh1Om0VIxADfedma+2E64gV+/gYwEjlk+2Dcb8U=
 github.com/meinside/telegram-bot-go v0.0.15 h1:Ve1LPFL6HNXYmIKWtwmMXbumyzgTBPdICJw7fbGUgnk=
