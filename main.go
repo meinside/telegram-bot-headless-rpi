@@ -199,27 +199,17 @@ Free Spaces :
 			}
 		} else if strings.HasPrefix(txt, CommandLocation) {
 			if extIP, err := status.ExternalIpAddress(); err == nil {
-				ips := ipstack.NewClient(ipstackAccessKey, ipstackPremium)
+				ips := ipstack.NewClient(ipstackAccessKey, !ipstackPremium)
 				if res, err := ips.LookupStandard(extIP); err == nil {
-					if res.Success {
-						options["live_period"] = LocationLivePeriodSeconds
+					options["live_period"] = LocationLivePeriodSeconds
 
-						if sent := b.SendLocation(
-							update.Message.Chat.ID,
-							res.Latitude,
-							res.Longitude,
-							options,
-						); !sent.Ok {
-							log.Printf("failed to send location: %s", *sent.Description)
-						}
-					} else {
-						if sent := b.SendMessage(
-							update.Message.Chat.ID,
-							fmt.Sprintf("failed to get geo location: %s", res.Error.Info),
-							options,
-						); !sent.Ok {
-							log.Printf("failed to send message: %s", *sent.Description)
-						}
+					if sent := b.SendLocation(
+						update.Message.Chat.ID,
+						res.Latitude,
+						res.Longitude,
+						options,
+					); !sent.Ok {
+						log.Printf("failed to send location: %s", *sent.Description)
 					}
 				} else {
 					if sent := b.SendMessage(
