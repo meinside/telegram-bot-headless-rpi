@@ -4,6 +4,6 @@ go 1.12
 
 require (
 	github.com/meinside/ipstack-go v0.0.2
-	github.com/meinside/rpi-tools v0.1.0
+	github.com/meinside/rpi-tools v0.1.3
 	github.com/meinside/telegram-bot-go v0.0.15
 )
